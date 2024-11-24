@@ -7,7 +7,7 @@ let tesAgora = 300;
 
 
 let tes_fecha = tesAgora + tcx; 
-// Calculo da tesourária após o fechamento do tcx
+// Calculo da tesouraria após o fechamento do tcx
 
 let total = taa_268+taa_269+taa_278+taa_370+tes_fecha;
 // Calculo do saldo total
