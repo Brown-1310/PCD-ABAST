@@ -40,7 +40,7 @@ let valorParcela = 156.30;
 let valorEmprestado = 5775.75; 
 
 let prazoFaltante = ((fimDesconto - dataHoje) / (1000 * 60 * 60 * 24 * 30)) + 1; 
-// Calcula o prazo faltante em meses, soma 1 como márgem de erro
+// Calcula o prazo faltante em meses, soma 1 como margem de erro
 
 function calcularTaxaSimples(valorEmprestado, valorParcela, parcelaContratada) { // A função vai utilizar chute para descobrir a taxa
     let taxaContrada = 0.01; // Chute inicial da taxa de juros (1%)

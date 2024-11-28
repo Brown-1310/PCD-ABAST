@@ -1,0 +1,36 @@
+*, 
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    font-size: 100%;
+    list-style-type: none;
+}
+
+
+
+body {
+    background-color: #2B35ED;
+}
+
+.Botoes {
+    margin: 80px 150px;
+    padding: 50px 100px;
+    border-radius: 20px;
+    border: solid #e8e9ec;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.Botoes-Botao {
+    background-color: #f5f82f; 
+    padding: 30px 70px;
+    border-radius: 20px;
+    font-size: large;
+
+}
