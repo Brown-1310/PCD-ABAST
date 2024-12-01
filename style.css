@@ -18,7 +18,7 @@ body {
 }
 
 .Botoes {
-    margin: 80px 150px;
+    margin: 40px 150px;
     padding: 50px 100px;
     border-radius: 20px;
     border: solid #e8e9ec;
@@ -32,5 +32,25 @@ body {
     padding: 30px 70px;
     border-radius: 20px;
     font-size: large;
+
+}
+
+.form {
+    border: #f5f5fa solid;
+    margin: 40px 400px;
+    padding: 15px 150px;
+    color: rgb(18, 19, 19);
+    font-size: 50px;
+
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    flex-direction: column;
+
+}
+
+.caixa {
+    padding: 10px 40px;
+    
 
 }

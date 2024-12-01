@@ -1,35 +1,109 @@
-//------------ABASTECIMENTO -----------------//
-let taa_268 = 100;
-let taa_269 = 100;
-let taa_370 = 100; 
-let taa_278 = 100;
-let tcx = 100;
-let tesAgora = 300;
+
+document.getElementById('Botao-abast').addEventListener('click', formAbast);
+// Faz a iteração ao clieque do mouse 
 
 
-let tes_fecha = tesAgora + tcx; 
-// Calculo da tesouraria após o fechamento do tcx
+function formAbast() {
+    const main = document.querySelector("main");
+    //Para adicionar precisamos do elemento pai
 
-let total = taa_268+taa_269+taa_278+taa_370+tes_fecha;
-// Calculo do saldo total
+    const divInput = document.createElement("div")
+    divInput.classList.add("form");
+    // Cria uma div e adiciona uma classe 
 
-let tes_ddn = 400;
-// deve ser solicitado agora a realização do DDN
-// e inclusão do saldo que deve ficar no fechamento
+    const tes = document.createElement("input")
+    const taa_268 = document.createElement("input")
+    const taa_269 = document.createElement("input")
+    const taa_370 = document.createElement("input")
+    const taa_278 = document.createElement("input")
+    const tcx = document.createElement("input")
+    const somar = document.createElement("button")
+    // Cria as TAG com as baixas de texto e os botões 
 
-if (tes_fecha > tes_ddn){
-    let abast = (tes_fecha+10)-tes_ddn;
-    console.log('UUU ABASTECER NO MÍNIMO: ', abast);
-} else {
-    if (tes_fecha < tes_ddn){
-        let recolhe = tes_ddn-tes_fecha;
-        console.log('UUU RECOLHER NO MÍNIMO: ', recolhe);
-    } else {
-        console.log('ESTÁ TUDO OK, PODE FECHAR A TESOURARIA')
-    } 
+    tes.classList.add("caixa");
+    taa_268.classList.add("caixa");
+    taa_269.classList.add("caixa");
+    taa_370.classList.add("caixa");
+    taa_278.classList.add("caixa");
+    tcx.classList.add("caixa");
+    somar.classList.add("caixa");
+    //Adiciona classe a tag e ao botão
+
+    somar.textContent = 'SOMAR';
+    // Nome do botão
+
+    main.appendChild(divInput);
+    divInput.appendChild(tes);
+    divInput.appendChild(taa_268);
+    divInput.appendChild(taa_269);
+    divInput.appendChild(taa_370);
+    divInput.appendChild(taa_278);
+    divInput.appendChild(tcx);
+    divInput.appendChild(somar);
+    // Adiciona um elemento
+  
+    somar.addEventListener("click", somarSaldos)
+
+    function somarSaldos () { 
+        const vtes = parseFloat(tes.value) || 0; 
+        const vtaa_268 = parseFloat(taa_268.value) || 0; 
+        const vtaa_269 = parseFloat(taa_269.value) || 0; 
+        const vtaa_370 = parseFloat(taa_370.value) || 0; 
+        const vtaa_278 = parseFloat(taa_278.value) || 0; 
+        const vtcx = parseFloat(tcx.value) || 0;
+    
+    
+    const tes_fecha = vtes + vtcx; 
+    // Calculo da tesouraria após o fechamento do tcx
+    
+    const vtotal = vtaa_268+vtaa_269+vtaa_278+vtaa_370+tes_fecha;
+    // Calculo do saldo total
+    
+    
+
+
+    let formatoReal = vtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    // Formatação para o Real brasileiro
+
+
+    const total = document.createElement("h3");
+    divInput.appendChild(total);
+    total.classList.add("caixa");
+    total.textContent = formatoReal;
+    // Saída com a soma 
+
+    const ddnmx = document.createElement("input")
+    const ddnmin = document.createElement("input")
+    divInput.appendChild(ddnmx);
+    divInput.appendChild(ddnmin);
+    ddnmx.classList.add("caixa");
+    ddnmin.classList.add("caixa");
+    // Inputs DDN
+
+    }
 
 }
 
+
+
+// function DDN(tes_fecha, tes_ddnmx, tes_ddnmin) {
+    
+//     if (tes_fecha > tes_ddnmx){
+//         let abast = (tes_fecha+10)-tes_ddnmx;
+//         alert('UUU ABASTECER NO MÍNIMO: ', abast);
+//     } else {
+//         if (tes_fecha < tes_ddnmin){
+//             let recolhe = tes_fecha-tes_ddnmin;
+//             alert('UUU RECOLHER NO MÍNIMO: ', recolhe);
+//         } else {
+//             alert('ESTÁ TUDO OK, PODE FECHAR A TESOURARIA')
+//         } 
+
+//     }
+// }
+
+
+/*
 // -----------CALCULO PCD---------------------//
 //Dados da operação
 
@@ -51,15 +125,12 @@ function calcularTaxaSimples(valorEmprestado, valorParcela, parcelaContratada) {
     while (i < maxIteracoes) {
         let valorFuturo = valorEmprestado * Math.pow(1 + taxaContrada, parcelaContratada) - 
                 valorParcela * ((Math.pow(1 + taxaContrada, parcelaContratada) - 1) / taxaContrada);
-        // Calcula a função do valor futuro
 
         let fvPrime = valorEmprestado * parcelaContratada * Math.pow(1 + taxaContrada, parcelaContratada - 1) - 
                       valorParcela * ((parcelaContratada * Math.pow(1 + taxaContrada, parcelaContratada - 1)) / 
                       taxaContrada - (Math.pow(1 + taxaContrada, parcelaContratada) - 1) / Math.pow(taxaContrada, 2));
-        // Calcula a derivada da função
 
         let taxaContradaNova = taxaContrada - (valorFuturo / fvPrime);
-        // Atualiza a taxa de juros usando o método de Newton-Raphson
 
         if (Math.abs(taxaContradaNova - taxaContrada) < precisao) break;
         // Verifica se a nova taxa está dentro da precisão desejada
@@ -79,7 +150,7 @@ function calcularSaldoRemanescente(valorParcela, taxaDeJuros, parcelasPagas, tot
     // Calcula o número de parcelas restantes
 
     return valorParcela * (1 - Math.pow(1 + taxaDeJuros, -parcelasRestantes)) / taxaDeJuros;
-    // Calcula o saldo remanescente usando a fórmula do valor presente de uma anuidade
+    // Calcula o saldo remanescente usando a fórmula do valor presente
 }
 
 let taxaDeJurosContratada = calcularTaxaSimples(valorEmprestado, valorParcela, parcelaContratada);
@@ -94,6 +165,8 @@ let saldoRemanescente = calcularSaldoRemanescente(valorParcela, taxaDeJurosContr
 console.log(`O Prazo remanescente é: ${Math.floor(prazoFaltante)} meses`); 
 console.log(`A taxa de juros contratada é: ${(taxaDeJurosContratada * 100).toFixed(2)}% ao mês`); 
 console.log(`O saldo remanescente é: R$ ${saldoRemanescente.toFixed(2)}`); 
+
+// */
 
 
 
