@@ -1,15 +1,15 @@
 
 document.getElementById('Botao-abast').addEventListener('click', formAbast);
-// Faz a iteração ao clieque do mouse 
+// Faz a interação ao clique do mouse chamando a função FormAbast
 
 
 function formAbast() {
     const main = document.querySelector("main");
-    //Para adicionar precisamos do elemento pai
+    //Para adicionar precisamos do elemento pai, aqui ligamos ele a variável 
 
     const divInput = document.createElement("div")
     divInput.classList.add("form");
-    // Cria uma div e adiciona uma classe 
+    // Cria uma div e nomeamos uma classe 
 
     const tes = document.createElement("input")
     const taa_268 = document.createElement("input")
@@ -18,7 +18,7 @@ function formAbast() {
     const taa_278 = document.createElement("input")
     const tcx = document.createElement("input")
     const somar = document.createElement("button")
-    // Cria as TAG com as baixas de texto e os botões 
+    // Cria as TAG com as caixas de texto e o botão 
 
     tes.classList.add("caixa");
     taa_268.classList.add("caixa");
@@ -40,9 +40,10 @@ function formAbast() {
     divInput.appendChild(taa_278);
     divInput.appendChild(tcx);
     divInput.appendChild(somar);
-    // Adiciona um elemento
+    // Agora sim, adiciona os elementos filhos criados 
   
     somar.addEventListener("click", somarSaldos)
+    // Faz a interação ao clique do mouse chamando a função somarSaldos
 
     function somarSaldos () { 
         const vtes = parseFloat(tes.value) || 0; 
@@ -51,56 +52,70 @@ function formAbast() {
         const vtaa_370 = parseFloat(taa_370.value) || 0; 
         const vtaa_278 = parseFloat(taa_278.value) || 0; 
         const vtcx = parseFloat(tcx.value) || 0;
+        // Captura os valores iseridos e atribui as variáveis 
     
-    
-    const tes_fecha = vtes + vtcx; 
-    // Calculo da tesouraria após o fechamento do tcx
-    
-    const vtotal = vtaa_268+vtaa_269+vtaa_278+vtaa_370+tes_fecha;
-    // Calculo do saldo total
-    
-    
+        const tes_fecha = vtes + vtcx; 
+        // Calculo da tesouraria após o fechamento do tcx
+        
+        const vtotal = vtaa_268+vtaa_269+vtaa_278+vtaa_370+tes_fecha;
+        // Calculo do saldo total
 
 
-    let formatoReal = vtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    // Formatação para o Real brasileiro
+        let formatoReal = vtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        // Formatação para o Real brasileiro
 
+        const total = document.createElement("h3");
+        divInput.appendChild(total);
+        total.classList.add("caixa");
+        total.textContent = formatoReal;
+        // Cria a saída com a soma dos valores inseridos
 
-    const total = document.createElement("h3");
-    divInput.appendChild(total);
-    total.classList.add("caixa");
-    total.textContent = formatoReal;
-    // Saída com a soma 
+        const ddnmx = document.createElement("input")
+        const ddnmin = document.createElement("input")
+        const botaoDDN = document.createElement("button")
+        // Cria input e caixa de texto DDN
 
-    const ddnmx = document.createElement("input")
-    const ddnmin = document.createElement("input")
-    divInput.appendChild(ddnmx);
-    divInput.appendChild(ddnmin);
-    ddnmx.classList.add("caixa");
-    ddnmin.classList.add("caixa");
-    // Inputs DDN
+        ddnmx.classList.add("caixa");
+        ddnmin.classList.add("caixa");
+        botaoDDN.classList.add("caixa");
+        // Adiciona a classe a caixa de texto e inputs DDN
+
+        botaoDDN.textContent = "Abastecimento"
+
+        divInput.appendChild(ddnmx);
+        divInput.appendChild(ddnmin);
+        divInput.appendChild(botaoDDN);
+        // Cria a caixa de texto e inputs DDN
+
+        botaoDDN.addEventListener('click', DDN)
+
+        function DDN(tes_fecha) {
+            const tes_ddnmx = parseFloat(ddnmx.value) || 0;
+            const tes_ddnmin = parseFloat(ddnmin.value) || 0;
+
+            if (tes_fecha > tes_ddnmx){
+                let abast = (tes_fecha+10)-tes_ddnmx;
+                abastFinal = `UUU ABASTECER NO MÍNIMO: ${abast.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+            } else {
+                if (tes_fecha < tes_ddnmin){
+                    let recolhe = tes_fecha-tes_ddnmin;
+                    abastFinal = `UUU RECOLHER NO MÍNIMO: ${recolhe.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+                } else {
+                    abastFinal = 'ESTÁ TUDO OK, PODE FECHAR A TESOURARIA';
+                } 
+        
+            }
+
+            const mensagAbast = document.createElement("h3");
+            divInput.appendChild(mensagAbast);
+            mensagAbast.classList.add("caixa");
+            mensagAbast.textContent = abastFinal;
+
+        }
 
     }
 
 }
-
-
-
-// function DDN(tes_fecha, tes_ddnmx, tes_ddnmin) {
-    
-//     if (tes_fecha > tes_ddnmx){
-//         let abast = (tes_fecha+10)-tes_ddnmx;
-//         alert('UUU ABASTECER NO MÍNIMO: ', abast);
-//     } else {
-//         if (tes_fecha < tes_ddnmin){
-//             let recolhe = tes_fecha-tes_ddnmin;
-//             alert('UUU RECOLHER NO MÍNIMO: ', recolhe);
-//         } else {
-//             alert('ESTÁ TUDO OK, PODE FECHAR A TESOURARIA')
-//         } 
-
-//     }
-// }
 
 
 /*

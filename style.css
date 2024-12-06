@@ -28,7 +28,7 @@ body {
 }
 
 .Botoes-Botao {
-    background-color: #f5f82f; 
+    background-color: #fcfc30; 
     padding: 30px 70px;
     border-radius: 20px;
     font-size: large;
@@ -36,12 +36,11 @@ body {
 }
 
 .form {
-    border: #f5f5fa solid;
     margin: 40px 400px;
     padding: 15px 150px;
     color: rgb(18, 19, 19);
-    font-size: 50px;
-
+    font-size: 20px;
+    color: #e8e9ec;
     display: flex;
     gap: 5px;
     justify-content: space-between;
