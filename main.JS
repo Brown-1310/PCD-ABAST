@@ -1,15 +1,23 @@
 
-document.getElementById('Botao-abast').addEventListener('click', formAbast);
-// Faz a interação ao clique do mouse chamando a função FormAbast
+document.getElementById('Botao-abast').addEventListener("click", function() { 
+    document.getElementById('Botao-abast').disabled = true; 
+    // Desativa o botão após o clique 
+    formAbast(); 
+}); // Desativa o botão após o clique e chama a função somarSaldos
 
+const main = document.querySelector("main");
+//Para adicionar precisamos do elemento pai, aqui ligamos ele a variável 
+
+const divInput = document.createElement("div")
+divInput.classList.add("form");
+// Cria uma div e adiciona uma classe
+
+function formatoReal(valor){
+    return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL' });
+}
+// Função coverter para real 
 
 function formAbast() {
-    const main = document.querySelector("main");
-    //Para adicionar precisamos do elemento pai, aqui ligamos ele a variável 
-
-    const divInput = document.createElement("div")
-    divInput.classList.add("form");
-    // Cria uma div e nomeamos uma classe 
 
     const tes = document.createElement("input")
     const taa_268 = document.createElement("input")
@@ -27,8 +35,14 @@ function formAbast() {
     taa_278.classList.add("caixa");
     tcx.classList.add("caixa");
     somar.classList.add("caixa");
-    //Adiciona classe a tag e ao botão
+    //Adiciona classe aos input e ao botão
 
+    tes.placeholder = "TESOURARIA"; 
+    taa_268.placeholder = "TAA 268"; 
+    taa_269.placeholder = "TAA 269"; 
+    taa_370.placeholder = "TAA 370"; 
+    taa_278.placeholder = "TAA 278"; 
+    tcx.placeholder = "TCX"
     somar.textContent = 'SOMAR';
     // Nome do botão
 
@@ -42,8 +56,11 @@ function formAbast() {
     divInput.appendChild(somar);
     // Agora sim, adiciona os elementos filhos criados 
   
-    somar.addEventListener("click", somarSaldos)
-    // Faz a interação ao clique do mouse chamando a função somarSaldos
+    somar.addEventListener("click", function() { 
+        somar.disabled = true; 
+        // Desativa o botão após o clique 
+        somarSaldos(); 
+    }); // Desativa o botão após o clique e chama a função somarSaldos
 
     function somarSaldos () { 
         const vtes = parseFloat(tes.value) || 0; 
@@ -60,56 +77,90 @@ function formAbast() {
         const vtotal = vtaa_268+vtaa_269+vtaa_278+vtaa_370+tes_fecha;
         // Calculo do saldo total
 
-
-        let formatoReal = vtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        let vtotalReal = formatoReal(vtotal)
         // Formatação para o Real brasileiro
 
         const total = document.createElement("h3");
-        divInput.appendChild(total);
         total.classList.add("caixa");
-        total.textContent = formatoReal;
-        // Cria a saída com a soma dos valores inseridos
+        divInput.appendChild(total);
+        total.textContent = vtotalReal;
+        // Cria uma tag h3, adiciona uma classe, inclui a divInput, adiciona o texto de saída 
 
         const ddnmx = document.createElement("input")
         const ddnmin = document.createElement("input")
         const botaoDDN = document.createElement("button")
-        // Cria input e caixa de texto DDN
+        // Cria inputs e o botão para executar o cálculo do DDN
 
         ddnmx.classList.add("caixa");
         ddnmin.classList.add("caixa");
         botaoDDN.classList.add("caixa");
-        // Adiciona a classe a caixa de texto e inputs DDN
+        // Adiciona a classe ao botão e inputs DDN
 
-        botaoDDN.textContent = "Abastecimento"
+        ddnmx.placeholder = "DDN Max"; 
+        ddnmin.placeholder = "DDN Min";  
+        botaoDDN.textContent = "CALCULAR"
+        // Adiciona placeholders e nome ao botão
 
         divInput.appendChild(ddnmx);
         divInput.appendChild(ddnmin);
         divInput.appendChild(botaoDDN);
-        // Cria a caixa de texto e inputs DDN
+        // adiciona o botão e inputs DDN
 
-        botaoDDN.addEventListener('click', DDN)
+        botaoDDN.addEventListener('click', function() {
+            botaoDDN.disabled = true 
+            DDN(tes_fecha, ddnmx, ddnmin); 
+        });
+        // Evento para executar a função ao clicar no botão 
 
-        function DDN(tes_fecha) {
+        // function criarInputComFormatacao(placeholder) { 
+        //     const input = document.createElement("input"); 
+        //     input.classList.add("caixa"); input.placeholder = placeholder; 
+        //     input.addEventListener("input", function() { 
+        //         const valor = input.value.replace(/[^\d]/g, ''); 
+        //         // Remove qualquer caractere não numérico 
+        //         const valorFormatado = formatoReal(parseFloat(valor / 100)); 
+        //         input.value = valorFormatado; 
+        //         // Atualiza o valor com formatação de Real 
+        //         }); 
+        //     return input; 
+        // }
+
+
+        function DDN (tes_fecha) {
             const tes_ddnmx = parseFloat(ddnmx.value) || 0;
             const tes_ddnmin = parseFloat(ddnmin.value) || 0;
+            let abastFinal = '';
 
             if (tes_fecha > tes_ddnmx){
-                let abast = (tes_fecha+10)-tes_ddnmx;
-                abastFinal = `UUU ABASTECER NO MÍNIMO: ${abast.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+                let abast = (tes_fecha+10)- tes_ddnmx
+                abastFinal = `UUU ABASTECER NO MÍNIMO: ${formatoReal(abast)}`;
+            } else if (tes_fecha < tes_ddnmin){
+                let recolhe = tes_ddnmin - tes_fecha;
+                abastFinal = `UUU RECOLHER NO MÍNIMO: ${formatoReal(recolhe)}`;
             } else {
-                if (tes_fecha < tes_ddnmin){
-                    let recolhe = tes_fecha-tes_ddnmin;
-                    abastFinal = `UUU RECOLHER NO MÍNIMO: ${recolhe.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
-                } else {
-                    abastFinal = 'ESTÁ TUDO OK, PODE FECHAR A TESOURARIA';
-                } 
-        
-            }
+                abastFinal = 'ESTÁ TUDO OK, PODE FECHAR A TESOURARIA';
+            } 
+            // IF que determina se abastece 
 
             const mensagAbast = document.createElement("h3");
-            divInput.appendChild(mensagAbast);
             mensagAbast.classList.add("caixa");
+            divInput.appendChild(mensagAbast);
             mensagAbast.textContent = abastFinal;
+            // Mensagem de resposta ao IF
+
+            const reiniciar = document.createElement("button");
+            reiniciar.classList.add("caixa");
+            reiniciar.textContent = 'REINICIAR';
+            divInput.appendChild(reiniciar)
+            // Botão para reiniciar o formulário
+            
+            reiniciar.addEventListener("click", function() { 
+                divInput.innerHTML = ''; 
+                // Limpa o conteúdo do divInput 
+                location.reload(); 
+                // Recarrega a página para reiniciar tudo 
+            }); 
+            // Adiciona um botão para reiniciar tudo
 
         }
 
