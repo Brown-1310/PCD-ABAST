@@ -1,6 +1,7 @@
 
 document.getElementById('Botao-abast').addEventListener("click", function() { 
-    document.getElementById('Botao-abast').disabled = true; 
+    document.getElementById('Botao-abast').disabled = true;
+    document.getElementById('Botao-pcd').disabled = true; 
     // Desativa o botão após o clique 
     formAbast(); 
 }); // Desativa o botão após o clique e chama a função somarSaldos
@@ -85,7 +86,7 @@ function formAbast() {
         // Formatação para o Real brasileiro
 
         const total = document.createElement("h3");
-        total.classList.add("caixa");
+        total.classList.add("texto");
         divInput.appendChild(total);
         total.textContent = vtotalReal;
         // Cria uma tag h3, adiciona uma classe, inclui a divInput, adiciona o texto de saída 
@@ -137,17 +138,17 @@ function formAbast() {
 
             if (tes_fecha > tes_ddnmx){
                 let abast = (tes_fecha+10)- tes_ddnmx
-                abastFinal = `UUU ABASTECER NO MÍNIMO: ${formatoReal(abast)}`;
+                abastFinal = `ABASTECER NO MÍNIMO: ${formatoReal(abast)}`;
             } else if (tes_fecha < tes_ddnmin){
                 let recolhe = tes_ddnmin - tes_fecha;
-                abastFinal = `UUU RECOLHER NO MÍNIMO: ${formatoReal(recolhe)}`;
+                abastFinal = `RECOLHER NO MÍNIMO: ${formatoReal(recolhe)}`;
             } else {
-                abastFinal = 'ESTÁ TUDO OK, PODE FECHAR A TESOURARIA';
+                abastFinal = 'ESTÁ TUDO OK';
             } 
             // IF que determina se abastece 
 
             const mensagAbast = document.createElement("h3");
-            mensagAbast.classList.add("caixa");
+            mensagAbast.classList.add("texto");
             divInput.appendChild(mensagAbast);
             mensagAbast.textContent = abastFinal;
             // Mensagem de resposta ao IF
@@ -174,6 +175,7 @@ function formAbast() {
 
 document.getElementById('Botao-pcd').addEventListener("click", function() {
     document.getElementById('Botao-pcd').disabled = true;
+    document.getElementById('Botao-abast').disabled = true;
     //Desativa o botão após o clique
     formPCD();
     // Chama a função PCD
@@ -235,7 +237,7 @@ function formPCD() {
         const vfimDesconto = new Date(fimDesconto.value) || 0;
         const vparcContratada = parseFloat(parcContratada.value) || 0;
         const vvalorParcela = parseFloat(valorParcela.value) || 0;
-        const vvalorEmprestado = parseFloat(valorEmprestado) || 0;
+        const vvalorEmprestado = parseFloat(valorEmprestado.value) || 0;
         // Captura os valores iseridos e atribui as variáveis
 
         let dataHoje = new Date();
@@ -245,36 +247,47 @@ function formPCD() {
         const parcelasPagas = vparcContratada - Math.floor(prazoFaltante); 
         // Calcula o número de parcelas pagas com base no prazo faltante
 
-        const taxa = calcularTaxaSimples(vvalorEmprestado, vvalorParcela, vparcContratada);
-        // Chama função para calcular a taxa
+        const calculoTaxa = calcularTaxaSimples(vvalorEmprestado, vvalorParcela, vparcContratada);
+        const taxa = (calculoTaxa*100).toPrecision(2)
+        // Chama função para calcular a taxa e tranforma em formato porcentagem 
         
-        const valorRemanscente = calcularSaldoRemanescente(valorParcela, taxa, parcelasPagas, vparcContratada);
+        const valorRemanscente = calcularSaldoRemanescente(vvalorParcela, calculoTaxa, parcelasPagas, vparcContratada);
         const valorRemanscenteReal = formatoReal(valorRemanscente);
-        //Chama função para calcular o valor remanescente
-
-        console.log(prazoFaltante)
-        console.log(taxa)
-        console.log(valorRemanscente)
+        //Chama função para calcular o valor remanescente, depois tranforma em formato real para exibição 
 
         const dadosSaida1 = document.createElement("h3");
-        dadosSaida1.classList.add("caixa");
+        dadosSaida1.classList.add("texto");
         divInput.appendChild(dadosSaida1);
         dadosSaida1.textContent = valorRemanscenteReal;
 
         
         const dadosSaida2 = document.createElement("h3");
-        dadosSaida2.classList.add("caixa");
+        dadosSaida2.classList.add("texto");
         divInput.appendChild(dadosSaida2);
-        dadosSaida2.textContent = taxa;
+        dadosSaida2.textContent = `${taxa} %`;
 
         
         const dadosSaida3 = document.createElement("h3");
-        dadosSaida3.classList.add("caixa");
+        dadosSaida3.classList.add("texto");
         divInput.appendChild(dadosSaida3);
-        dadosSaida3.textContent = prazoFaltante;
+        dadosSaida3.textContent = parseInt(prazoFaltante);
         // Cria uma tag h3, adiciona uma classe, inclui a divInput, adiciona o texto de saída 
 
     }
+
+        const reiniciar = document.createElement("button");
+        reiniciar.classList.add("caixa");
+        reiniciar.textContent = 'REINICIAR';
+        divInput.appendChild(reiniciar)
+        // Botão para reiniciar o formulário
+            
+        reiniciar.addEventListener("click", function() { 
+            divInput.innerHTML = ''; 
+            // Limpa o conteúdo do divInput 
+            location.reload(); 
+            // Recarrega a página para reiniciar tudo 
+        }); 
+        // Adiciona um botão para reiniciar tudo
 
 }
 

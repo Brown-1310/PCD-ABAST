@@ -6,14 +6,13 @@
     box-sizing: border-box;
     text-decoration: none;
 }
-body{
-    font-size: 100%;
-    list-style-type: none;
-}
 
-
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 
 body {
+    font-family: "Viga", serif;
+    font-size: 100%;
+    list-style-type: none;
     background-color: #2B35ED;
 }
 
@@ -24,6 +23,7 @@ body {
     border: solid #e8e9ec;
     display: flex;
     justify-content: space-between;
+    background-color: #5db7eb;
     
 }
 
@@ -45,11 +45,19 @@ body {
     gap: 5px;
     justify-content: space-between;
     flex-direction: column;
+    
 
 }
 
 .caixa {
     padding: 10px 40px;
-    
+}
+
+.texto {
+    border: #e8e9ec;
+    color: black;
+    border-radius: 20px;
+    background-color: #fcfc30;
+    padding: 10px 40px;
 
 }
