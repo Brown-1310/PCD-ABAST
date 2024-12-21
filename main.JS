@@ -5,12 +5,17 @@ document.getElementById('Botao-abast').addEventListener("click", function() {
     formAbast(); 
 }); // Desativa o botão após o clique e chama a função somarSaldos
 
+//------ Cria uma DIV filha de MAIN----------
 const main = document.querySelector("main");
 //Para adicionar precisamos do elemento pai, aqui ligamos ele a variável 
 
 const divInput = document.createElement("div")
 divInput.classList.add("form");
 // Cria uma div e adiciona uma classe
+
+main.appendChild(divInput);
+// Adiciona a DIV criada ao elemnto pai selecionado MAIN
+//------------------------------------------
 
 function formatoReal(valor){
     return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL' });
@@ -19,13 +24,13 @@ function formatoReal(valor){
 
 function formAbast() {
 
-    const tes = document.createElement("input")
-    const taa_268 = document.createElement("input")
-    const taa_269 = document.createElement("input")
-    const taa_370 = document.createElement("input")
-    const taa_278 = document.createElement("input")
-    const tcx = document.createElement("input")
-    const somar = document.createElement("button")
+    const tes = document.createElement("input");
+    const taa_268 = document.createElement("input");
+    const taa_269 = document.createElement("input");
+    const taa_370 = document.createElement("input");
+    const taa_278 = document.createElement("input");
+    const tcx = document.createElement("input");
+    const somar = document.createElement("button");
     // Cria as TAG com as caixas de texto e o botão 
 
     tes.classList.add("caixa");
@@ -44,9 +49,8 @@ function formAbast() {
     taa_278.placeholder = "TAA 278"; 
     tcx.placeholder = "TCX"
     somar.textContent = 'SOMAR';
-    // Nome do botão
+    // Nome do botão e placeholders das caixas de texto
 
-    main.appendChild(divInput);
     divInput.appendChild(tes);
     divInput.appendChild(taa_268);
     divInput.appendChild(taa_269);
@@ -168,19 +172,111 @@ function formAbast() {
 
 }
 
+document.getElementById('Botao-pcd').addEventListener("click", function() {
+    document.getElementById('Botao-pcd').disabled = true;
+    //Desativa o botão após o clique
+    formPCD();
+    // Chama a função PCD
+});
+     
+function formPCD() {
+    const fimDesconto = document.createElement("input");
+    const parcContratada = document.createElement("input");
+    const valorParcela = document.createElement("input");
+    const valorEmprestado = document.createElement("input");
+    const calcular = document.createElement("button");
+    // Cria as TAG com as caixas de texto e o botão 
 
-/*
-// -----------CALCULO PCD---------------------//
-//Dados da operação
+    fimDesconto.classList.add("caixa");
+    parcContratada.classList.add("caixa");
+    valorParcela.classList.add("caixa");
+    valorEmprestado.classList.add("caixa");
+    calcular.classList.add("caixa");
+    //Adiciona classe aos input e ao botão
 
-let fimDesconto = new Date('2030-01-01'); 
-let dataHoje = new Date(); 
-let parcelaContratada = 84; 
-let valorParcela = 156.30; 
-let valorEmprestado = 5775.75; 
+    fimDesconto.placeholder = "FIM DO DESCONTO";
+    parcContratada.placeholder = "NUMERO DE PARCELAS";
+    valorParcela.placeholder = "VALOR DA PARCELA";
+    valorEmprestado.placeholder = "VALOR EMPRESTADO";
+    calcular.textContent = "CALCULAR";
+    // Nome do botão e placeholders das caixas de texto
 
-let prazoFaltante = ((fimDesconto - dataHoje) / (1000 * 60 * 60 * 24 * 30)) + 1; 
-// Calcula o prazo faltante em meses, soma 1 como margem de erro
+    divInput.appendChild(fimDesconto);
+    divInput.appendChild(parcContratada);
+    divInput.appendChild(valorParcela);
+    divInput.appendChild(valorEmprestado);
+    divInput.appendChild(calcular);
+    //Adicionando os elemntos filhos
+
+    //------Modo data do imput "Fim desconto"
+    fimDesconto.addEventListener('focus', function(){
+        this.type = 'date';
+    });
+
+    fimDesconto.addEventListener('blur', function(){
+        if(this.value === '') {
+            this.type = 'text';
+        }
+    })
+    //------ Quando o campo de entrada é focado (focus), 
+    // o tipo do input é alterado para date, exibindo o calendário 
+    // popup. 
+    //------ Quando o campo perde o foco (blur), o tipo do input 
+    // volta para text se o valor estiver vazio, para mostrar o 
+    // placeholder novamente.
+
+    calcular.addEventListener("click", function() {
+        calcular.disabled = true;
+        fazerCalculo();
+    });
+    // Desativa o botão Calcular e chama a função
+
+    function fazerCalculo () {
+        const vfimDesconto = new Date(fimDesconto.value) || 0;
+        const vparcContratada = parseFloat(parcContratada.value) || 0;
+        const vvalorParcela = parseFloat(valorParcela.value) || 0;
+        const vvalorEmprestado = parseFloat(valorEmprestado) || 0;
+        // Captura os valores iseridos e atribui as variáveis
+
+        let dataHoje = new Date();
+        let prazoFaltante = ((vfimDesconto - dataHoje) / (1000 * 60 * 60 * 24 * 30)) + 1; 
+        // Calcula o prazo faltante em meses, soma 1 como margem de erro
+
+        const parcelasPagas = vparcContratada - Math.floor(prazoFaltante); 
+        // Calcula o número de parcelas pagas com base no prazo faltante
+
+        const taxa = calcularTaxaSimples(vvalorEmprestado, vvalorParcela, vparcContratada);
+        // Chama função para calcular a taxa
+        
+        const valorRemanscente = calcularSaldoRemanescente(valorParcela, taxa, parcelasPagas, vparcContratada);
+        const valorRemanscenteReal = formatoReal(valorRemanscente);
+        //Chama função para calcular o valor remanescente
+
+        console.log(prazoFaltante)
+        console.log(taxa)
+        console.log(valorRemanscente)
+
+        const dadosSaida1 = document.createElement("h3");
+        dadosSaida1.classList.add("caixa");
+        divInput.appendChild(dadosSaida1);
+        dadosSaida1.textContent = valorRemanscenteReal;
+
+        
+        const dadosSaida2 = document.createElement("h3");
+        dadosSaida2.classList.add("caixa");
+        divInput.appendChild(dadosSaida2);
+        dadosSaida2.textContent = taxa;
+
+        
+        const dadosSaida3 = document.createElement("h3");
+        dadosSaida3.classList.add("caixa");
+        divInput.appendChild(dadosSaida3);
+        dadosSaida3.textContent = prazoFaltante;
+        // Cria uma tag h3, adiciona uma classe, inclui a divInput, adiciona o texto de saída 
+
+    }
+
+}
 
 function calcularTaxaSimples(valorEmprestado, valorParcela, parcelaContratada) { // A função vai utilizar chute para descobrir a taxa
     let taxaContrada = 0.01; // Chute inicial da taxa de juros (1%)
@@ -218,22 +314,3 @@ function calcularSaldoRemanescente(valorParcela, taxaDeJuros, parcelasPagas, tot
     return valorParcela * (1 - Math.pow(1 + taxaDeJuros, -parcelasRestantes)) / taxaDeJuros;
     // Calcula o saldo remanescente usando a fórmula do valor presente
 }
-
-let taxaDeJurosContratada = calcularTaxaSimples(valorEmprestado, valorParcela, parcelaContratada);
-// Calcula a taxa de juros contratada
-
-let parcelasPagas = parcelaContratada - Math.floor(prazoFaltante); 
-// Calcula o número de parcelas pagas com base no prazo faltante
-
-let saldoRemanescente = calcularSaldoRemanescente(valorParcela, taxaDeJurosContratada, parcelasPagas, parcelaContratada);
-// Calcula o saldo remanescente
-
-console.log(`O Prazo remanescente é: ${Math.floor(prazoFaltante)} meses`); 
-console.log(`A taxa de juros contratada é: ${(taxaDeJurosContratada * 100).toFixed(2)}% ao mês`); 
-console.log(`O saldo remanescente é: R$ ${saldoRemanescente.toFixed(2)}`); 
-
-// */
-
-
-
-
