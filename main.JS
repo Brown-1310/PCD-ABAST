@@ -1,10 +1,17 @@
-
 document.getElementById('Botao-abast').addEventListener("click", function() { 
     document.getElementById('Botao-abast').disabled = true;
     document.getElementById('Botao-pcd').disabled = true; 
     // Desativa o botão após o clique 
     formAbast(); 
 }); // Desativa o botão após o clique e chama a função somarSaldos
+
+document.getElementById('Botao-pcd').addEventListener("click", function() {
+    document.getElementById('Botao-pcd').disabled = true;
+    document.getElementById('Botao-abast').disabled = true;
+    //Desativa o botão após o clique
+    formPCD();
+    // Chama a função PCD
+});
 
 //------ Cria uma DIV filha de MAIN----------
 const main = document.querySelector("main");
@@ -21,7 +28,9 @@ main.appendChild(divInput);
 function formatoReal(valor){
     return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL' });
 }
-// Função coverter para real 
+// Função coverter para real
+
+
 
 function formAbast() {
 
@@ -61,6 +70,9 @@ function formAbast() {
     divInput.appendChild(somar);
     // Agora sim, adiciona os elementos filhos criados 
   
+    adicionarEventosCaixa()
+    // Executa função que formata o número enquanto digita 
+
     somar.addEventListener("click", function() { 
         somar.disabled = true; 
         // Desativa o botão após o clique 
@@ -111,25 +123,14 @@ function formAbast() {
         divInput.appendChild(botaoDDN);
         // adiciona o botão e inputs DDN
 
+        adicionarEventosCaixa()
+        // Executa função que formata o número enquanto digita
+
         botaoDDN.addEventListener('click', function() {
             botaoDDN.disabled = true 
             DDN(tes_fecha, ddnmx, ddnmin); 
         });
         // Evento para executar a função ao clicar no botão 
-
-        // function criarInputComFormatacao(placeholder) { 
-        //     const input = document.createElement("input"); 
-        //     input.classList.add("caixa"); input.placeholder = placeholder; 
-        //     input.addEventListener("input", function() { 
-        //         const valor = input.value.replace(/[^\d]/g, ''); 
-        //         // Remove qualquer caractere não numérico 
-        //         const valorFormatado = formatoReal(parseFloat(valor / 100)); 
-        //         input.value = valorFormatado; 
-        //         // Atualiza o valor com formatação de Real 
-        //         }); 
-        //     return input; 
-        // }
-
 
         function DDN (tes_fecha) {
             const tes_ddnmx = parseFloat(ddnmx.value) || 0;
@@ -172,14 +173,6 @@ function formAbast() {
     }
 
 }
-
-document.getElementById('Botao-pcd').addEventListener("click", function() {
-    document.getElementById('Botao-pcd').disabled = true;
-    document.getElementById('Botao-abast').disabled = true;
-    //Desativa o botão após o clique
-    formPCD();
-    // Chama a função PCD
-});
      
 function formPCD() {
     const fimDesconto = document.createElement("input");
@@ -189,8 +182,8 @@ function formPCD() {
     const calcular = document.createElement("button");
     // Cria as TAG com as caixas de texto e o botão 
 
-    fimDesconto.classList.add("caixa");
-    parcContratada.classList.add("caixa");
+    fimDesconto.classList.add("ncaixa");
+    parcContratada.classList.add("ncaixa");
     valorParcela.classList.add("caixa");
     valorEmprestado.classList.add("caixa");
     calcular.classList.add("caixa");
@@ -209,6 +202,9 @@ function formPCD() {
     divInput.appendChild(valorEmprestado);
     divInput.appendChild(calcular);
     //Adicionando os elemntos filhos
+
+    adicionarEventosCaixa()
+    // Executa função que formata o número enquanto digita
 
     //------Modo data do imput "Fim desconto"
     fimDesconto.addEventListener('focus', function(){
@@ -327,3 +323,58 @@ function calcularSaldoRemanescente(valorParcela, taxaDeJuros, parcelasPagas, tot
     return valorParcela * (1 - Math.pow(1 + taxaDeJuros, -parcelasRestantes)) / taxaDeJuros;
     // Calcula o saldo remanescente usando a fórmula do valor presente
 }
+
+function adicionarEventosCaixa() { 
+    // Seleciona todos os elementos com a classe 'caixa'
+    const elementosCaixa = document.querySelectorAll('.caixa');
+
+    // Itera sobre cada elemento com a classe 'caixa'
+    elementosCaixa.forEach(elemento => { 
+        // Adiciona o evento 'input' ao elemento
+        elemento.addEventListener('input', function() {
+            let valorInput = this.value;
+
+            // Remove todos os caracteres que não são dígitos ou vírgula
+            valorInput = valorInput.replace(/[^\d,]/g, '');
+
+            // Verifica se há mais de uma vírgula e permite apenas uma vírgula no valor
+            const partes = valorInput.split(',');
+            if (partes.length > 2) {
+                valorInput = partes.slice(0, 2).join(',');
+            }
+
+            // Separa a parte inteira e a parte decimal do valor
+            const [parteInteira, parteDecimal] = valorInput.split(',');
+
+            // Formata a parte inteira com pontos como separadores de milhar
+            const parteFormatada = parteInteira
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+            // Atualiza o valor do input com a parte formatada
+            // e, se existir, a parte decimal, limitada a duas casas
+            this.value = parteDecimal ? `${parteFormatada},${parteDecimal.substring(0, 2)}` : parteFormatada;
+        });
+
+        // Adiciona o evento 'blur' ao elemento
+        elemento.addEventListener('blur', function() {
+            let valorInput = this.value;
+
+            // Remove todos os caracteres que não são dígitos ou vírgula
+            valorInput = valorInput.replace(/[^\d,]/g, '');
+
+            // Substitui a vírgula por ponto para conversão numérica
+            let valorNumerico = parseFloat(valorInput.replace(',', '.')) || 0;
+
+            // Atualiza o valor do input com a formatação de Real brasileiro,
+            // incluindo pontos para separadores de milhar e duas casas decimais
+            this.value = valorNumerico.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        });
+    });
+}
+
+    
+
