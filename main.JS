@@ -17,19 +17,19 @@ document.getElementById('Botao-pcd').addEventListener("click", function() {
 const main = document.querySelector("main");
 //Para adicionar precisamos do elemento pai, aqui ligamos ele a variável 
 
-const divInput = document.createElement("div")
-divInput.classList.add("form");
+const divFormulario = document.createElement("div")
+divFormulario.classList.add("form");
 // Cria uma div e adiciona uma classe
 
-main.appendChild(divInput);
+main.appendChild(divFormulario);
 // Adiciona a DIV criada ao elemnto pai selecionado MAIN
+// Dentro dessa div outras divs vão ser criadas contendo o formulário
 //------------------------------------------
 
 function formatoReal(valor){
     return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL' });
 }
 // Função coverter para real
-
 
 
 function formAbast() {
@@ -80,13 +80,13 @@ function formAbast() {
     }); // Desativa o botão após o clique e chama a função somarSaldos
 
     function somarSaldos () { 
-        const vtes = parseFloat(tes.value) || 0; 
-        const vtaa_268 = parseFloat(taa_268.value) || 0; 
-        const vtaa_269 = parseFloat(taa_269.value) || 0; 
-        const vtaa_370 = parseFloat(taa_370.value) || 0; 
-        const vtaa_278 = parseFloat(taa_278.value) || 0; 
-        const vtcx = parseFloat(tcx.value) || 0;
-        // Captura os valores iseridos e atribui as variáveis 
+        const vtes = parseFloat(tes.value.replace(/\./g, '').replace(',', '.')) || 0; 
+        const vtaa_268 = parseFloat(taa_268.value.replace(/\./g, '').replace(',', '.')) || 0; 
+        const vtaa_269 = parseFloat(taa_269.value.replace(/\./g, '').replace(',', '.')) || 0; 
+        const vtaa_370 = parseFloat(taa_370.value.replace(/\./g, '').replace(',', '.')) || 0; 
+        const vtaa_278 = parseFloat(taa_278.value.replace(/\./g, '').replace(',', '.')) || 0; 
+        const vtcx = parseFloat(tcx.value.replace(/\./g, '').replace(',', '.')) || 0
+        // Os valores são inseridos no formato real, desta forma removemos os separadores de milhar antes de convertê-los para float. 
     
         const tes_fecha = vtes + vtcx; 
         // Calculo da tesouraria após o fechamento do tcx
@@ -133,8 +133,8 @@ function formAbast() {
         // Evento para executar a função ao clicar no botão 
 
         function DDN (tes_fecha) {
-            const tes_ddnmx = parseFloat(ddnmx.value) || 0;
-            const tes_ddnmin = parseFloat(ddnmin.value) || 0;
+            const tes_ddnmx = parseFloat(ddnmx.value.replace(/\./g, '').replace(',', '.')) || 0;
+            const tes_ddnmin = parseFloat(ddnmin.value.replace(/\./g, '').replace(',', '.')) || 0;
             let abastFinal = '';
 
             if (tes_fecha > tes_ddnmx){
@@ -175,33 +175,63 @@ function formAbast() {
 }
      
 function formPCD() {
+
+    const divInput1 = document.createElement("div");
+    divInput1.classList.add("form2");
+    divFormulario.appendChild(divInput1);
+    const divInput2 = document.createElement("div");
+    divInput2.classList.add("form2");
+    divFormulario.appendChild(divInput2);
+    const divInput3 = document.createElement("div");
+    divInput3.classList.add("form2");
+    divFormulario.appendChild(divInput3);
+    const divInput4 = document.createElement("div");
+    divInput4.classList.add("form2");
+    divFormulario.appendChild(divInput4);
+    // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
+    // Adiciona essas Div a DIVFORMULÁRIO filha de MAIN 
+
+    const nome1 = document.createElement("h3");
+    nome1.classList.add("texto")
+    nome1.textContent = "FIM DO DESCONTO";
+    const nome2 = document.createElement("h3");
+    nome2.classList.add("texto")
+    nome2.textContent = "NUMERO DE PARCELAS";
+    const nome3 = document.createElement("h3");
+    nome3.classList.add("texto")
+    nome3.textContent = "VALOR DA PARCELA";
+    const nome4 = document.createElement("h3");
+    nome4.classList.add("texto")
+    nome4.textContent = "VALOR EMPRESTADO";
+    // Cria tags h3 e inclui seus respectivos textos e adiciona classe  
+
     const fimDesconto = document.createElement("input");
-    const parcContratada = document.createElement("input");
-    const valorParcela = document.createElement("input");
-    const valorEmprestado = document.createElement("input");
-    const calcular = document.createElement("button");
-    // Cria as TAG com as caixas de texto e o botão 
-
     fimDesconto.classList.add("ncaixa");
+    const parcContratada = document.createElement("input");
     parcContratada.classList.add("ncaixa");
+    // Essa classe é diferente pq não quero que a função que tranforma
+    // em formato real rode aqui 
+    const valorParcela = document.createElement("input");
     valorParcela.classList.add("caixa");
+    const valorEmprestado = document.createElement("input");
     valorEmprestado.classList.add("caixa");
-    calcular.classList.add("caixa");
-    //Adiciona classe aos input e ao botão
-
-    fimDesconto.placeholder = "FIM DO DESCONTO";
-    parcContratada.placeholder = "NUMERO DE PARCELAS";
-    valorParcela.placeholder = "VALOR DA PARCELA";
-    valorEmprestado.placeholder = "VALOR EMPRESTADO";
+    const calcular = document.createElement("button");
+    calcular.classList.add("botoessecundarios");
+    // Cria as TAG com as caixas de texto e o botão e adiciona classe aos input e ao botão
+    
     calcular.textContent = "CALCULAR";
-    // Nome do botão e placeholders das caixas de texto
+    // Nome do botão
 
-    divInput.appendChild(fimDesconto);
-    divInput.appendChild(parcContratada);
-    divInput.appendChild(valorParcela);
-    divInput.appendChild(valorEmprestado);
-    divInput.appendChild(calcular);
-    //Adicionando os elemntos filhos
+    divInput1.appendChild(fimDesconto);
+    divInput1.insertBefore(nome1, fimDesconto);
+    divInput2.appendChild(parcContratada);
+    divInput2.insertBefore(nome2, parcContratada);
+    divInput3.appendChild(valorParcela);
+    divInput3.insertBefore(nome3, valorParcela);
+    divInput4.appendChild(valorEmprestado);
+    divInput4.insertBefore(nome4, valorEmprestado);
+    divFormulario.appendChild(calcular);
+    //Adicionando os elementos filhos criados 
 
     adicionarEventosCaixa()
     // Executa função que formata o número enquanto digita
@@ -232,8 +262,8 @@ function formPCD() {
     function fazerCalculo () {
         const vfimDesconto = new Date(fimDesconto.value) || 0;
         const vparcContratada = parseFloat(parcContratada.value) || 0;
-        const vvalorParcela = parseFloat(valorParcela.value) || 0;
-        const vvalorEmprestado = parseFloat(valorEmprestado.value) || 0;
+        const vvalorParcela = parseFloat(valorParcela.value.replace(/\./g, '').replace(',', '.')) || 0;
+        const vvalorEmprestado = parseFloat(valorEmprestado.value.replace(/\./g, '').replace(',', '.')) || 0;
         // Captura os valores iseridos e atribui as variáveis
 
         let dataHoje = new Date();
@@ -251,40 +281,79 @@ function formPCD() {
         const valorRemanscenteReal = formatoReal(valorRemanscente);
         //Chama função para calcular o valor remanescente, depois tranforma em formato real para exibição 
 
+        
+        //------ Cria uma NOVA DIV filha de MAIN----------
+
+        const divFormularioRESP = document.createElement("div")
+        divFormularioRESP.classList.add("form");
+        // Cria uma div e adiciona uma classe
+
+        main.appendChild(divFormularioRESP);
+        // Adiciona a DIV criada ao elemnto pai selecionado MAIN
+        // Dentro dessa div outras divs vão ser criadas contendo o formulário
+        //------------------------------------------
+
+
+        const divInput5 = document.createElement("div");
+        divInput5.classList.add("form2");
+        divFormularioRESP.appendChild(divInput5);
+        const divInput6 = document.createElement("div");
+        divInput6.classList.add("form2");
+        divFormularioRESP.appendChild(divInput6);
+        const divInput7 = document.createElement("div");
+        divInput7.classList.add("form2");
+        divFormularioRESP.appendChild(divInput7);
+        // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
+        // Adiciona essas Div a DIVFORMULÁRIORESP filha de MAIN 
+
+        const nome5 = document.createElement("h3");
+        nome5.classList.add("texto")
+        nome5.textContent = "SALDO DEVEDOR";
+        const nome6 = document.createElement("h3");
+        nome6.classList.add("texto")
+        nome6.textContent = "TAXA";
+        const nome7 = document.createElement("h3");
+        nome7.classList.add("texto")
+        nome7.textContent = "PRAZO FALTANTE";
+        // Cria tags h3 e inclui seus respectivos textos e adiciona classe  
+        
         const dadosSaida1 = document.createElement("h3");
-        dadosSaida1.classList.add("texto");
-        divInput.appendChild(dadosSaida1);
+        dadosSaida1.classList.add("textoresposta");
         dadosSaida1.textContent = valorRemanscenteReal;
-
-        
         const dadosSaida2 = document.createElement("h3");
-        dadosSaida2.classList.add("texto");
-        divInput.appendChild(dadosSaida2);
+        dadosSaida2.classList.add("textoresposta");
         dadosSaida2.textContent = `${taxa} %`;
-
-        
         const dadosSaida3 = document.createElement("h3");
-        dadosSaida3.classList.add("texto");
-        divInput.appendChild(dadosSaida3);
-        dadosSaida3.textContent = parseInt(prazoFaltante);
-        // Cria uma tag h3, adiciona uma classe, inclui a divInput, adiciona o texto de saída 
+        dadosSaida3.classList.add("textoresposta");
+        dadosSaida3.textContent = `${parseInt(prazoFaltante)} MESES`;
+        // Cria uma tag h3, adiciona uma classe com o resultado dos cálculos 
 
-    }
+        divInput5.appendChild(dadosSaida1);
+        divInput5.insertBefore(nome5, dadosSaida1)
+        divInput6.appendChild(dadosSaida2);
+        divInput6.insertBefore(nome6, dadosSaida2)
+        divInput7.appendChild(dadosSaida3);
+        divInput7.insertBefore(nome7, dadosSaida3)
+        // Inclui o cálculo e o texto
 
         const reiniciar = document.createElement("button");
-        reiniciar.classList.add("caixa");
+        reiniciar.classList.add("botoessecundarios");
         reiniciar.textContent = 'REINICIAR';
-        divInput.appendChild(reiniciar)
+        divFormularioRESP.appendChild(reiniciar)
         // Botão para reiniciar o formulário
             
         reiniciar.addEventListener("click", function() { 
-            divInput.innerHTML = ''; 
+            divFormularioRESP.innerHTML = ''; 
             // Limpa o conteúdo do divInput 
             location.reload(); 
             // Recarrega a página para reiniciar tudo 
         }); 
         // Adiciona um botão para reiniciar tudo
 
+
+    }
+
+        
 }
 
 function calcularTaxaSimples(valorEmprestado, valorParcela, parcelaContratada) { // A função vai utilizar chute para descobrir a taxa
