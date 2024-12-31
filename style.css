@@ -51,7 +51,8 @@ main {
     display: flex; gap: 0.5rem; 
     justify-content: space-between; 
     flex-direction: column; 
-    max-width: 90%
+    max-width: 90%;
+    /* Formulário da divFormulario */
     
 }
 
@@ -61,6 +62,7 @@ main {
     gap: 5px;
     justify-content: space-between;
     flex-direction: row;
+    /* Formulário das DIVs filhas, que contem o cnjunto descrição/input ou output */
 
 }
 
@@ -68,6 +70,8 @@ main {
     padding: 10px 10px;
     font-size: 25px;
     border-radius: 20px;
+    /* A função adicionarEventosCaixa usa a classe caixa para formatar as caixas de entrada */
+    /* Como outras entradas não necessitam desta função, foi criada uma outra classe que a função não rode nelas */
 }
 
 .botoessecundarios {
@@ -84,6 +88,7 @@ main {
     background-color: #fcfc30;
     padding: 05px 05px;
     margin: 5px 20px;
+    /* Testo que fica ao lado das entradas a saídas */
 
 }
 
@@ -94,4 +99,17 @@ main {
     background-color: whitesmoke;
     padding: 05px 05px;
     margin: 5px 20px;
+    /* Texto que exibe as saídas */
+
+}
+
+.respostaDDN{
+    border: #e8e9ec;
+    color: black;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    padding: 10px 30px;
+    margin: 5px 100px;
+    /* Texto que exibe a resposta ao DDN */
+
 }

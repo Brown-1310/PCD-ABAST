@@ -34,42 +34,82 @@ function formatoReal(valor){
 
 function formAbast() {
 
+    const divInput1 = document.createElement("div");
+    divInput1.classList.add("form2");
+    divFormulario.appendChild(divInput1);
+    const divInput2 = document.createElement("div");
+    divInput2.classList.add("form2");
+    divFormulario.appendChild(divInput2);
+    const divInput3 = document.createElement("div");
+    divInput3.classList.add("form2");
+    divFormulario.appendChild(divInput3);
+    const divInput4 = document.createElement("div");
+    divInput4.classList.add("form2");
+    divFormulario.appendChild(divInput4);
+    const divInput5 = document.createElement("div");
+    divInput5.classList.add("form2");
+    divFormulario.appendChild(divInput5);
+    const divInput6 = document.createElement("div");
+    divInput6.classList.add("form2");
+    divFormulario.appendChild(divInput6);
+    // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
+    // Adiciona essas Div a DIVFORMULÁRIO, filha de MAIN 
+
+    const nome1 = document.createElement("h3");
+    nome1.classList.add("texto")
+    nome1.textContent = "TESOURARIA";
+    const nome2 = document.createElement("h3");
+    nome2.classList.add("texto")
+    nome2.textContent = "70268";
+    const nome3 = document.createElement("h3");
+    nome3.classList.add("texto")
+    nome3.textContent = "70269";
+    const nome4 = document.createElement("h3");
+    nome4.classList.add("texto")
+    nome4.textContent = "70370";
+    const nome5 = document.createElement("h3");
+    nome5.classList.add("texto")
+    nome5.textContent = "71278";
+    const nome6 = document.createElement("h3");
+    nome6.classList.add("texto")
+    nome6.textContent = "TCX";
+    // Cria tags h3 e inclui seus respectivos textos e adiciona classe  
+
     const tes = document.createElement("input");
-    const taa_268 = document.createElement("input");
-    const taa_269 = document.createElement("input");
-    const taa_370 = document.createElement("input");
-    const taa_278 = document.createElement("input");
-    const tcx = document.createElement("input");
-    const somar = document.createElement("button");
-    // Cria as TAG com as caixas de texto e o botão 
-
     tes.classList.add("caixa");
+    const taa_268 = document.createElement("input");
     taa_268.classList.add("caixa");
+    const taa_269 = document.createElement("input");
     taa_269.classList.add("caixa");
+    const taa_370 = document.createElement("input");
     taa_370.classList.add("caixa");
+    const taa_278 = document.createElement("input");
     taa_278.classList.add("caixa");
+    const tcx = document.createElement("input");
     tcx.classList.add("caixa");
-    somar.classList.add("caixa");
-    //Adiciona classe aos input e ao botão
+    // Cria as TAG com as caixas de texto e adiciona classe aos inputs
 
-    tes.placeholder = "TESOURARIA"; 
-    taa_268.placeholder = "TAA 268"; 
-    taa_269.placeholder = "TAA 269"; 
-    taa_370.placeholder = "TAA 370"; 
-    taa_278.placeholder = "TAA 278"; 
-    tcx.placeholder = "TCX"
-    somar.textContent = 'SOMAR';
-    // Nome do botão e placeholders das caixas de texto
+    divInput1.appendChild(tes);
+    divInput1.insertBefore(nome1, tes);
+    divInput2.appendChild(taa_268);
+    divInput2.insertBefore(nome2, taa_268);
+    divInput3.appendChild(taa_269);
+    divInput3.insertBefore(nome3, taa_269);
+    divInput4.appendChild(taa_370);
+    divInput4.insertBefore(nome4, taa_370);
+    divInput5.appendChild(taa_278);
+    divInput5.insertBefore(nome5, taa_278);
+    divInput6.appendChild(tcx);
+    divInput6.insertBefore(nome6, tcx);
+    //Adicionando os todos os elementos filhos criados
 
-    divInput.appendChild(tes);
-    divInput.appendChild(taa_268);
-    divInput.appendChild(taa_269);
-    divInput.appendChild(taa_370);
-    divInput.appendChild(taa_278);
-    divInput.appendChild(tcx);
-    divInput.appendChild(somar);
-    // Agora sim, adiciona os elementos filhos criados 
-  
+    
+    const somar = document.createElement("button");
+    somar.classList.add("botoessecundarios");
+    somar.textContent = "SOMAR"
+    divFormulario.appendChild(somar);
+    // Botão para executar a função de soma
+
     adicionarEventosCaixa()
     // Executa função que formata o número enquanto digita 
 
@@ -97,31 +137,53 @@ function formAbast() {
         let vtotalReal = formatoReal(vtotal)
         // Formatação para o Real brasileiro
 
+        const divInput7 = document.createElement("div");
+        divInput7.classList.add("form2");
+        divFormulario.appendChild(divInput7);
+        const divInput8 = document.createElement("div");
+        divInput8.classList.add("form2");
+        divFormulario.appendChild(divInput8);
+        const divInput9 = document.createElement("div");
+        divInput9.classList.add("form2");
+        divFormulario.appendChild(divInput9);
+        // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
+        // Adiciona essas Div a DIVFORMULÁRIOR filha de MAIN 
+
+        const nome7 = document.createElement("h3");
+        nome7.classList.add("texto")
+        nome7.textContent = "TOTAL";
+        const nome8 = document.createElement("h3");
+        nome8.classList.add("texto")
+        nome8.textContent = "DDN MÁXIMO";
+        const nome9 = document.createElement("h3");
+        nome9.classList.add("texto")
+        nome9.textContent = "DDN MÍNIMO";
+        // Cria tags h3 e inclui seus respectivos textos e adiciona classe  
+        
         const total = document.createElement("h3");
-        total.classList.add("texto");
-        divInput.appendChild(total);
+        total.classList.add("textoresposta");
         total.textContent = vtotalReal;
-        // Cria uma tag h3, adiciona uma classe, inclui a divInput, adiciona o texto de saída 
+        // Cria uma tag h3, adiciona uma classe do texto de saída como o total 
 
         const ddnmx = document.createElement("input")
-        const ddnmin = document.createElement("input")
-        const botaoDDN = document.createElement("button")
-        // Cria inputs e o botão para executar o cálculo do DDN
-
         ddnmx.classList.add("caixa");
+        const ddnmin = document.createElement("input")
         ddnmin.classList.add("caixa");
-        botaoDDN.classList.add("caixa");
-        // Adiciona a classe ao botão e inputs DDN
+        // Cria inputs e adiciona a classe ao botão e inputs DDN
 
-        ddnmx.placeholder = "DDN Max"; 
-        ddnmin.placeholder = "DDN Min";  
+        divInput7.appendChild(total);
+        divInput7.insertBefore(nome7, total)
+        divInput8.appendChild(ddnmx);
+        divInput8.insertBefore(nome8, ddnmx)
+        divInput9.appendChild(ddnmin);
+        divInput9.insertBefore(nome9, ddnmin)
+        // Inclui a soma e as caixas de texto
+
+        const botaoDDN = document.createElement("button")
+        botaoDDN.classList.add("botoessecundarios")
         botaoDDN.textContent = "CALCULAR"
-        // Adiciona placeholders e nome ao botão
-
-        divInput.appendChild(ddnmx);
-        divInput.appendChild(ddnmin);
-        divInput.appendChild(botaoDDN);
-        // adiciona o botão e inputs DDN
+        divFormulario.appendChild(botaoDDN);
+        // adiciona que chama a função DDN
 
         adicionarEventosCaixa()
         // Executa função que formata o número enquanto digita
@@ -138,7 +200,7 @@ function formAbast() {
             let abastFinal = '';
 
             if (tes_fecha > tes_ddnmx){
-                let abast = (tes_fecha+10)- tes_ddnmx
+                let abast = (tes_fecha+10000)- tes_ddnmx
                 abastFinal = `ABASTECER NO MÍNIMO: ${formatoReal(abast)}`;
             } else if (tes_fecha < tes_ddnmin){
                 let recolhe = tes_ddnmin - tes_fecha;
@@ -149,19 +211,19 @@ function formAbast() {
             // IF que determina se abastece 
 
             const mensagAbast = document.createElement("h3");
-            mensagAbast.classList.add("texto");
-            divInput.appendChild(mensagAbast);
+            mensagAbast.classList.add("respostaDDN");
+            divFormulario.appendChild(mensagAbast);
             mensagAbast.textContent = abastFinal;
             // Mensagem de resposta ao IF
 
             const reiniciar = document.createElement("button");
-            reiniciar.classList.add("caixa");
+            reiniciar.classList.add("botoessecundarios");
             reiniciar.textContent = 'REINICIAR';
-            divInput.appendChild(reiniciar)
+            divFormulario.appendChild(reiniciar)
             // Botão para reiniciar o formulário
             
             reiniciar.addEventListener("click", function() { 
-                divInput.innerHTML = ''; 
+                divFormulario.innerHTML = ''; 
                 // Limpa o conteúdo do divInput 
                 location.reload(); 
                 // Recarrega a página para reiniciar tudo 
@@ -189,7 +251,7 @@ function formPCD() {
     divInput4.classList.add("form2");
     divFormulario.appendChild(divInput4);
     // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
-    // Adiciona essas Div a DIVFORMULÁRIO filha de MAIN 
+    // Adiciona essas Div a DIVFORMULÁRIO, filha de MAIN 
 
     const nome1 = document.createElement("h3");
     nome1.classList.add("texto")
@@ -209,18 +271,13 @@ function formPCD() {
     fimDesconto.classList.add("ncaixa");
     const parcContratada = document.createElement("input");
     parcContratada.classList.add("ncaixa");
-    // Essa classe é diferente pq não quero que a função que tranforma
-    // em formato real rode aqui 
+        // Essa classe é diferente pq não quero que a função que tranforma
+        // em formato real rode aqui 
     const valorParcela = document.createElement("input");
     valorParcela.classList.add("caixa");
     const valorEmprestado = document.createElement("input");
     valorEmprestado.classList.add("caixa");
-    const calcular = document.createElement("button");
-    calcular.classList.add("botoessecundarios");
-    // Cria as TAG com as caixas de texto e o botão e adiciona classe aos input e ao botão
-    
-    calcular.textContent = "CALCULAR";
-    // Nome do botão
+    // Cria as TAG com as caixas de texto e adiciona classe aos inputs
 
     divInput1.appendChild(fimDesconto);
     divInput1.insertBefore(nome1, fimDesconto);
@@ -230,8 +287,13 @@ function formPCD() {
     divInput3.insertBefore(nome3, valorParcela);
     divInput4.appendChild(valorEmprestado);
     divInput4.insertBefore(nome4, valorEmprestado);
+    //Adicionando os todos os elementos filhos criados
+    
+    const calcular = document.createElement("button");
+    calcular.classList.add("botoessecundarios");
+    calcular.textContent = "CALCULAR";
     divFormulario.appendChild(calcular);
-    //Adicionando os elementos filhos criados 
+    // Botão para executar a função de calcular 
 
     adicionarEventosCaixa()
     // Executa função que formata o número enquanto digita
@@ -281,30 +343,17 @@ function formPCD() {
         const valorRemanscenteReal = formatoReal(valorRemanscente);
         //Chama função para calcular o valor remanescente, depois tranforma em formato real para exibição 
 
-        
-        //------ Cria uma NOVA DIV filha de MAIN----------
-
-        const divFormularioRESP = document.createElement("div")
-        divFormularioRESP.classList.add("form");
-        // Cria uma div e adiciona uma classe
-
-        main.appendChild(divFormularioRESP);
-        // Adiciona a DIV criada ao elemnto pai selecionado MAIN
-        // Dentro dessa div outras divs vão ser criadas contendo o formulário
-        //------------------------------------------
-
-
         const divInput5 = document.createElement("div");
         divInput5.classList.add("form2");
-        divFormularioRESP.appendChild(divInput5);
+        divFormulario.appendChild(divInput5);
         const divInput6 = document.createElement("div");
         divInput6.classList.add("form2");
-        divFormularioRESP.appendChild(divInput6);
+        divFormulario.appendChild(divInput6);
         const divInput7 = document.createElement("div");
         divInput7.classList.add("form2");
-        divFormularioRESP.appendChild(divInput7);
+        divFormulario.appendChild(divInput7);
         // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
-        // Adiciona essas Div a DIVFORMULÁRIORESP filha de MAIN 
+        // Adiciona essas Div a DIVFORMULÁRIO filha de MAIN 
 
         const nome5 = document.createElement("h3");
         nome5.classList.add("texto")
@@ -326,7 +375,8 @@ function formPCD() {
         const dadosSaida3 = document.createElement("h3");
         dadosSaida3.classList.add("textoresposta");
         dadosSaida3.textContent = `${parseInt(prazoFaltante)} MESES`;
-        // Cria uma tag h3, adiciona uma classe com o resultado dos cálculos 
+        // Cria uma tag h3, adiciona uma classe
+        // Aqui vai o resultado dos cálculos 
 
         divInput5.appendChild(dadosSaida1);
         divInput5.insertBefore(nome5, dadosSaida1)
@@ -339,11 +389,11 @@ function formPCD() {
         const reiniciar = document.createElement("button");
         reiniciar.classList.add("botoessecundarios");
         reiniciar.textContent = 'REINICIAR';
-        divFormularioRESP.appendChild(reiniciar)
+        divFormulario.appendChild(reiniciar)
         // Botão para reiniciar o formulário
             
         reiniciar.addEventListener("click", function() { 
-            divFormularioRESP.innerHTML = ''; 
+            divFormulario.innerHTML = ''; 
             // Limpa o conteúdo do divInput 
             location.reload(); 
             // Recarrega a página para reiniciar tudo 
