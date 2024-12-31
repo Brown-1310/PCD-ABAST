@@ -22,7 +22,6 @@ main {
     justify-content: center;
     flex-direction: column;
 
-
 }
 .Botoes {
     margin: 40px 150px;
@@ -93,6 +92,6 @@ main {
     color: black;
     border-radius: 10px;
     background-color: whitesmoke;
-    padding: 10px 40px;
+    padding: 05px 05px;
     margin: 5px 20px;
 }
