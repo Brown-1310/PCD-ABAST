@@ -9,39 +9,53 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 
+
+html, body { height: 100%; }
+/* Para espaçar corretamente os ítens do body */
+
 body {
     font-family: "Viga", serif;
     font-size: 100%;
     list-style-type: none;
     background-color: #2b35ed;
-    background-image: radial-gradient(#2b35ed, rgba(98, 187, 209, 0.5))
+    background-image: radial-gradient(#2b35ed, rgba(98, 187, 209, 0.5));
+
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between ;
+    /* Especificamente para manter o footer grudado em baixo  */
 }
 
 main {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+footer {
+    background-color: #5db7eb;
+    font-size: large;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.2rem;
 
 }
+
 .Botoes {
-    margin: 40px 150px;
-    padding: 50px 100px;
-    border-radius: 20px;
-    border: solid #e8e9ec;
+    padding: 20px 200px;
     display: flex;
     justify-content: space-between;
     background-color: #5db7eb;
-    background-image: radial-gradient(#5db7eb, rgba(28, 95, 219, 0.5))
-    
-    
+    background-image: radial-gradient(#5db7eb, rgba(28, 95, 219, 0.5));
 }
 
+
 .Botoes-Botao {
-    background-color: #fcfc30; 
+    background-color: #fcfc30;
+    border: solid  #ebeb6c;
     padding: 30px 70px;
     border-radius: 20px;
     font-size: large;
-
 }
 
 .form {
@@ -53,7 +67,7 @@ main {
     flex-direction: column; 
     max-width: 90%;
     /* Formulário da divFormulario */
-    
+   
 }
 
 .form2 {
@@ -62,14 +76,14 @@ main {
     gap: 5px;
     justify-content: space-between;
     flex-direction: row;
-    /* Formulário das DIVs filhas, que contem o cnjunto descrição/input ou output */
-
+    /* Formulário das DIVs filhas, que contem o conjunto descrição/input ou output */
 }
 
 .caixa, .ncaixa {
     padding: 10px 10px;
     font-size: 25px;
     border-radius: 20px;
+    border: solid #f7f7f5;
     /* A função adicionarEventosCaixa usa a classe caixa para formatar as caixas de entrada */
     /* Como outras entradas não necessitam desta função, foi criada uma outra classe que a função não rode nelas */
 }
@@ -79,8 +93,9 @@ main {
     height: 40px;
     font-size: 30px;
     border-radius: 20px;
-
+    border: solid #f7f7f5;
 }
+
 .texto {
     border: #e8e9ec;
     color: black;
@@ -88,8 +103,7 @@ main {
     background-color: #fcfc30;
     padding: 05px 05px;
     margin: 5px 20px;
-    /* Testo que fica ao lado das entradas a saídas */
-
+    /* Texto que fica ao lado das entradas a saídas */
 }
 
 .textoresposta{
@@ -100,7 +114,6 @@ main {
     padding: 05px 05px;
     margin: 5px 20px;
     /* Texto que exibe as saídas */
-
 }
 
 .respostaDDN{
@@ -111,5 +124,54 @@ main {
     padding: 10px 30px;
     margin: 5px 100px;
     /* Texto que exibe a resposta ao DDN */
+}
 
+@media (max-width: 800px) {
+    .Botoes {
+        padding: 3% 5%;
+    }
+    .form {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .form2 {
+        padding: 2px 35px 2px 35px;
+    }
+    .caixa, .ncaixa {
+        font-size: 20px;
+        padding: 5px;
+    }
+    .botoessecundarios {
+        margin: 10px auto;
+        font-size: 18px;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .Botoes {
+        padding: 2% 2%;
+    }
+    .form {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+    .form2 {
+        padding: 1px 20px 1px 20px;
+        flex-direction: column;
+    }
+    .caixa, .ncaixa {
+        font-size: 18px;
+        padding: 5px;
+    }
+    .botoessecundarios {
+        margin: 5px auto;
+        font-size: 16px;
+        padding: 5px;
+    }
+    .texto, .textoresposta, .respostaDDN {
+        font-size: 0.875rem;
+        padding: 5px 10px;
+        margin: 5px 10px;
+    }
 }
