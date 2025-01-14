@@ -127,8 +127,11 @@ footer {
 }
 
 @media (max-width: 800px) {
+    .Botoes-Botao{
+        padding: 5% 10%;
+    }
     .Botoes {
-        padding: 3% 5%;
+        padding: 3% 10%;
     }
     .form {
         padding: 1rem;
@@ -149,8 +152,12 @@ footer {
 }
 
 @media (max-width: 500px) {
+    .Botoes-Botao{
+        padding: 2% 4%;
+        font-size: 95%;
+    }
     .Botoes {
-        padding: 1% 1%;
+        padding: 5% 6%;
     }
     .form {
         padding: 0.5rem;
