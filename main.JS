@@ -494,6 +494,5 @@ function adicionarEventosCaixa() {
         });
     });
 }
-
     
 
