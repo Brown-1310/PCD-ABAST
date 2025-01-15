@@ -222,9 +222,7 @@ function formAbast() {
             divFormulario.appendChild(reiniciar)
             // Botão para reiniciar o formulário
             
-            reiniciar.addEventListener("click", function() { 
-                divFormulario.innerHTML = ''; 
-                // Limpa o conteúdo do divInput 
+            reiniciar.addEventListener("click", function() {  
                 location.reload(); 
                 // Recarrega a página para reiniciar tudo 
             }); 
@@ -343,63 +341,105 @@ function formPCD() {
         const valorRemanscenteReal = formatoReal(valorRemanscente);
         //Chama função para calcular o valor remanescente, depois tranforma em formato real para exibição 
 
-        const divInput5 = document.createElement("div");
-        divInput5.classList.add("form2");
-        divFormulario.appendChild(divInput5);
-        const divInput6 = document.createElement("div");
-        divInput6.classList.add("form2");
-        divFormulario.appendChild(divInput6);
-        const divInput7 = document.createElement("div");
-        divInput7.classList.add("form2");
-        divFormulario.appendChild(divInput7);
-        // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
-        // Adiciona essas Div a DIVFORMULÁRIO filha de MAIN 
+        if (taxa < 0.5 || prazoFaltante > vparcContratada || isNaN(taxa)) {
 
-        const nome5 = document.createElement("h3");
-        nome5.classList.add("texto")
-        nome5.textContent = "SALDO DEVEDOR";
-        const nome6 = document.createElement("h3");
-        nome6.classList.add("texto")
-        nome6.textContent = "TAXA";
-        const nome7 = document.createElement("h3");
-        nome7.classList.add("texto")
-        nome7.textContent = "PRAZO FALTANTE";
-        // Cria tags h3 e inclui seus respectivos textos e adiciona classe  
-        
-        const dadosSaida1 = document.createElement("h3");
-        dadosSaida1.classList.add("textoresposta");
-        dadosSaida1.textContent = valorRemanscenteReal;
-        const dadosSaida2 = document.createElement("h3");
-        dadosSaida2.classList.add("textoresposta");
-        dadosSaida2.textContent = `${taxa} %`;
-        const dadosSaida3 = document.createElement("h3");
-        dadosSaida3.classList.add("textoresposta");
-        dadosSaida3.textContent = `${parseInt(prazoFaltante)} MESES`;
-        // Cria uma tag h3, adiciona uma classe
-        // Aqui vai o resultado dos cálculos 
+            const divInput5 = document.createElement("div");
+            divInput5.classList.add("form2");
+            divFormulario.appendChild(divInput5);
+            // Div para mensagem de erro
 
-        divInput5.appendChild(dadosSaida1);
-        divInput5.insertBefore(nome5, dadosSaida1)
-        divInput6.appendChild(dadosSaida2);
-        divInput6.insertBefore(nome6, dadosSaida2)
-        divInput7.appendChild(dadosSaida3);
-        divInput7.insertBefore(nome7, dadosSaida3)
-        // Inclui o cálculo e o texto
+            const dadosSaida1 = document.createElement("h3");
+            dadosSaida1.classList.add("textorespostaERRO");
+            dadosSaida1.textContent = "Verifique as informações!! ";
+            // Mensagem de erro
 
-        const reiniciar = document.createElement("button");
-        reiniciar.classList.add("botoessecundarios");
-        reiniciar.textContent = 'REINICIAR';
-        divFormulario.appendChild(reiniciar)
-        // Botão para reiniciar o formulário
+            divInput5.appendChild(dadosSaida1);
+            //Adiciona mensage de erro a DIV
+
+            const reabrirForm = document.createElement("button"); 
+            reabrirForm.classList.add("botoessecundarios"); 
+            reabrirForm.textContent = 'REINICIAR'; 
+            divFormulario.appendChild(reabrirForm);
+            // Botão para reabrir formulário
+
+            const cancela = document.createElement("button"); 
+            cancela.classList.add("botoessecundarios"); 
+            cancela.textContent = 'CANCELA'; 
+            divFormulario.appendChild(cancela);
+            //Botão cancelar transação 
+
+            reabrirForm.addEventListener("click", function() { 
+                divFormulario.innerHTML = '';
+                // Chama a função formPCD() 
+                formPCD();
+            });
+
+            cancela.addEventListener("click", function() { 
+                location.reload();
+                //Recarrega a página em caso de cancelamento 
+            });
+
+        } else {
+
+            const divInput5 = document.createElement("div");
+            divInput5.classList.add("form2");
+            divFormulario.appendChild(divInput5);
+            const divInput6 = document.createElement("div");
+            divInput6.classList.add("form2");
+            divFormulario.appendChild(divInput6);
+            const divInput7 = document.createElement("div");
+            divInput7.classList.add("form2");
+            divFormulario.appendChild(divInput7);
+            // Cria uma div para cada conjunto "nome" e "input" e adiciona uma classe
+            // Adiciona essas Div a DIVFORMULÁRIO filha de MAIN 
+
+            const nome5 = document.createElement("h3");
+            nome5.classList.add("texto")
+            nome5.textContent = "SALDO DEVEDOR";
+            const nome6 = document.createElement("h3");
+            nome6.classList.add("texto")
+            nome6.textContent = "TAXA";
+            const nome7 = document.createElement("h3");
+            nome7.classList.add("texto")
+            nome7.textContent = "PRAZO FALTANTE";
+            // Cria tags h3 e inclui seus respectivos textos e adiciona classe  
             
-        reiniciar.addEventListener("click", function() { 
-            divFormulario.innerHTML = ''; 
-            // Limpa o conteúdo do divInput 
-            location.reload(); 
-            // Recarrega a página para reiniciar tudo 
-        }); 
-        // Adiciona um botão para reiniciar tudo
+            const dadosSaida1 = document.createElement("h3");
+            dadosSaida1.classList.add("textoresposta");
+            dadosSaida1.textContent = valorRemanscenteReal;
+            const dadosSaida2 = document.createElement("h3");
+            dadosSaida2.classList.add("textoresposta");
+            dadosSaida2.textContent = `${taxa} %`;
+            const dadosSaida3 = document.createElement("h3");
+            dadosSaida3.classList.add("textoresposta");
+            dadosSaida3.textContent = `${parseInt(prazoFaltante)} MESES`;
+            // Cria uma tag h3, adiciona uma classe
+            // Aqui vai o resultado dos cálculos 
 
+            divInput5.appendChild(dadosSaida1);
+            divInput5.insertBefore(nome5, dadosSaida1)
+            divInput6.appendChild(dadosSaida2);
+            divInput6.insertBefore(nome6, dadosSaida2)
+            divInput7.appendChild(dadosSaida3);
+            divInput7.insertBefore(nome7, dadosSaida3)
+            // Inclui o cálculo e o texto
+
+
+            const reiniciar = document.createElement("button");
+            reiniciar.classList.add("botoessecundarios");
+            reiniciar.textContent = 'REINICIAR';
+            divFormulario.appendChild(reiniciar)
+            // Botão para reiniciar o formulário
+                
+            reiniciar.addEventListener("click", function() {  
+                location.reload(); 
+                // Recarrega a página para reiniciar tudo 
+            }); 
+            
+
+        }
+
+        
 
     }
 

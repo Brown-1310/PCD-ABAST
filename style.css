@@ -116,6 +116,16 @@ footer {
     /* Texto que exibe as saídas */
 }
 
+.textorespostaERRO{
+    border: #e8e9ec;
+    color: rgb(230, 221, 221);
+    border-radius: 10px;
+    background-color: rgb(212, 54, 54);
+    padding: 10px 50px;
+    margin: 5px auto;
+    /* Texto que exibe o erro no cálculo de PCD */
+}
+
 .respostaDDN{
     border: #e8e9ec;
     color: black;
